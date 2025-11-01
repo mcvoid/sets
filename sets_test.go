@@ -375,7 +375,7 @@ func TestOrderedSunset(t *testing.T) {
 		},
 	} {
 		t.Run(fmt.Sprintf("%v <= %v", test.super, test.sub), func(t *testing.T) {
-			actual := OrderedSubset(test.super, test.sub)
+			actual := IsOrderedSubsetOf(test.super, test.sub)
 			if test.expected != actual {
 				t.Errorf("expected %v got %v", test.expected, actual)
 			}
@@ -422,7 +422,7 @@ func TestUnorderedSunset(t *testing.T) {
 		},
 	} {
 		t.Run(fmt.Sprintf("%v <= %v", test.super, test.sub), func(t *testing.T) {
-			actual := UnorderedSubset(test.super, test.sub)
+			actual := IsUnorderedSubsetOf(test.super, test.sub)
 			if test.expected != actual {
 				t.Errorf("expected %v got %v", test.expected, actual)
 			}

@@ -245,7 +245,7 @@ func UnorderedIntersect[S ~map[K]V, K comparable, V any](sets ...S) S {
 // if and only if every element in sub is also in super.
 //
 // This version is meant to be for slices.
-func OrderedSubset[S ~[]E, E comparable](super, sub S) bool {
+func IsOrderedSubsetOf[S ~[]E, E comparable](super, sub S) bool {
 	for _, e := range sub {
 		if !slices.Contains(super, e) {
 			return false
@@ -258,7 +258,7 @@ func OrderedSubset[S ~[]E, E comparable](super, sub S) bool {
 // if and only if every key in sub is also in super.
 //
 // This vesrion is meant to be for maps.
-func UnorderedSubset[S ~map[K]V, K comparable, V any](super, sub S) bool {
+func IsUnorderedSubsetOf[S ~map[K]V, K comparable, V any](super, sub S) bool {
 	for k := range sub {
 		if _, exists := super[k]; !exists {
 			return false
