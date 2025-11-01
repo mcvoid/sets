@@ -257,7 +257,7 @@ func IsOrderedSubsetOf[S ~[]E, E comparable](super, sub S) bool {
 // Returns whether sub is a subset of super. It is a subset
 // if and only if every key in sub is also in super.
 //
-// This vesrion is meant to be for maps.
+// This version is meant to be for maps.
 func IsUnorderedSubsetOf[S ~map[K]V, K comparable, V any](super, sub S) bool {
 	if len(sub) > len(super) {
 		return false
