@@ -259,6 +259,9 @@ func IsOrderedSubsetOf[S ~[]E, E comparable](super, sub S) bool {
 //
 // This vesrion is meant to be for maps.
 func IsUnorderedSubsetOf[S ~map[K]V, K comparable, V any](super, sub S) bool {
+	if len(sub) > len(super) {
+		return false
+	}
 	for k := range sub {
 		if _, exists := super[k]; !exists {
 			return false

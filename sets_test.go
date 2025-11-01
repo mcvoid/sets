@@ -357,7 +357,16 @@ func TestOrderedSunset(t *testing.T) {
 			sub:      []int{1, 2, 3, 4, 5},
 			expected: false,
 		},
-
+		{
+			super:    []int{1, 2, 3, 4},
+			sub:      []int{1, 2, 3, 5},
+			expected: false,
+		},
+		{
+			super:    []int{1, 2, 3, 4},
+			sub:      []int{1, 1, 2, 3},
+			expected: true,
+		},
 		{
 			super:    nil,
 			sub:      []int{1, 2, 3, 4},
@@ -404,7 +413,11 @@ func TestUnorderedSunset(t *testing.T) {
 			sub:      map[int]int{1: 1, 2: 1, 3: 1, 4: 1, 5: 1},
 			expected: false,
 		},
-
+		{
+			super:    map[int]int{1: 1, 2: 1, 3: 1, 4: 1},
+			sub:      map[int]int{1: 1, 2: 1, 3: 1, 5: 1},
+			expected: false,
+		},
 		{
 			super:    nil,
 			sub:      map[int]int{1: 1, 2: 1, 3: 1, 4: 1},
