@@ -102,3 +102,112 @@ func TestExamples(t *testing.T) {
 		}
 	})
 }
+
+func TestAppend(t *testing.T) {
+	actual := sets.Append[[]int](nil, 1, 2, 3)
+	actual = sets.Append(actual, 2, 3, 4)
+	expected := []int{1, 2, 3, 4}
+	if !slices.Equal(expected, actual) {
+		t.Errorf("expected %v got %v", expected, actual)
+	}
+}
+
+func TestRemoveLastN(t *testing.T) {
+	actual := sets.RemoveLastN([]int{1, 2, 3, 4, 5}, 2)
+	if !slices.Equal([]int{1, 2, 3}, actual) {
+		t.Errorf("expected %v got %v", []int{3, 4, 5}, actual)
+	}
+	actual = sets.RemoveLastN(actual, 2)
+	if !slices.Equal([]int{1}, actual) {
+		t.Errorf("expected %v got %v", []int{5}, actual)
+	}
+	actual = sets.RemoveLastN(actual, 2)
+	if actual != nil {
+		t.Errorf("expected %v got %v", nil, actual)
+	}
+}
+
+func TestPrepend(t *testing.T) {
+	actual := sets.Prepend[[]int](nil, 1, 2, 3)
+	actual = sets.Prepend(actual, 2, 3, 4)
+	expected := []int{2, 3, 4, 1}
+	if !slices.Equal(expected, actual) {
+		t.Errorf("expected %v got %v", expected, actual)
+	}
+}
+
+func TestRemoveFirstN(t *testing.T) {
+	actual := sets.RemoveFirstN([]int{1, 2, 3, 4, 5}, 2)
+	if !slices.Equal([]int{3, 4, 5}, actual) {
+		t.Errorf("expected %v got %v", []int{3, 4, 5}, actual)
+	}
+	actual = sets.RemoveFirstN(actual, 2)
+	if !slices.Equal([]int{5}, actual) {
+		t.Errorf("expected %v got %v", []int{5}, actual)
+	}
+	actual = sets.RemoveFirstN(actual, 2)
+	if actual != nil {
+		t.Errorf("expected %v got %v", nil, actual)
+	}
+}
+
+func TestInsert(t *testing.T) {
+	actual := sets.Insert(nil, map[int]int{1: 1, 2: 2, 3: 3})
+	actual = sets.Insert(actual, map[int]int{2: 2, 3: 3, 4: 4})
+	expected := map[int]int{1: 1, 2: 2, 3: 3, 4: 4}
+	if !maps.Equal(expected, actual) {
+		t.Errorf("expected %v got %v", expected, actual)
+	}
+}
+
+func TestDeduplicate(t *testing.T) {
+	actual := sets.Deduplicate([]int{1, 2, 3, 1, 2, 3, 4})
+	expected := []int{1, 2, 3, 4}
+	if !slices.Equal(expected, actual) {
+		t.Errorf("expected %v got %v", expected, actual)
+	}
+}
+
+func TestSplice(t *testing.T) {
+	actual := sets.Splice[[]int](nil, 0, 1, 2, 3)
+	actual = sets.Splice(actual, 1, 4, 5, 6)
+	actual = sets.Splice(actual, 1)
+	expected := []int{1, 4, 5, 6, 2, 3}
+	if !slices.Equal(expected, actual) {
+		t.Errorf("expected %v got %v", expected, actual)
+	}
+}
+
+func TestOrderedRemove(t *testing.T) {
+	actual := sets.OrderedRemove([]int{1, 2, 3})
+	actual = sets.OrderedRemove(actual, 1, 4, 5, 6)
+	actual = sets.OrderedRemove(actual, 2, 3)
+	if len(actual) != 0 {
+		t.Errorf("expected %v got %v", nil, actual)
+	}
+}
+
+func TestUnorderedRemove(t *testing.T) {
+	actual := sets.UnorderedRemove(map[int]int{1: 1, 2: 2, 3: 3}, 3)
+	actual = sets.UnorderedRemove(actual, 2)
+	actual = sets.UnorderedRemove(actual, 1)
+	if len(actual) != 0 {
+		t.Errorf("expected %v got %v", nil, actual)
+	}
+}
+
+func TestCloneOrderedSet(t *testing.T) {
+	old := []int{1, 2, 3}
+	actual := sets.CloneOrderedSet(old)
+	if !slices.Equal(old, actual) {
+		t.Errorf("expected %v got %v", old, actual)
+	}
+}
+
+func TestCloneUnorderedSet(t *testing.T) {
+	old := map[int]int{1: 1, 2: 2, 3: 3}
+	actual := sets.CloneUnorderedSet(old)
+	if !maps.Equal(old, actual) {
+		t.Errorf("expected %v got %v", old, actual)
+	}
+}

@@ -269,3 +269,65 @@ func IsUnorderedSubsetOf[S ~map[K]V, K comparable, V any](super, sub S) bool {
 	}
 	return true
 }
+
+// Helper function. Equivalent to OrderedUnion(s, e)
+func Append[S ~[]E, E comparable](s S, e ...E) S {
+	return OrderedUnion(s, e)
+}
+
+// Helper function. Equivalent to OrderedComplement(s, S{s[len(s)-n]})
+func RemoveLastN[S ~[]E, E comparable](s S, n int) S {
+	if len(s)-n < 1 {
+		return nil
+	}
+	return OrderedComplement(s, s[len(s)-n:])
+}
+
+// Helper function. Equivalent to OrderedUnion(S{e}, s)
+func Prepend[S ~[]E, E comparable](s S, e ...E) S {
+	return OrderedUnion(e, s)
+}
+
+// Helper function. Equivalent to OrderedComplement(s, S{s[n-1]})
+func RemoveFirstN[S ~[]E, E comparable](s S, n int) S {
+	if len(s)-n < 1 {
+		return nil
+	}
+	return OrderedComplement(s, s[:n])
+}
+
+// Helper function. Equivalent to OrderedUnion(s[:i], e, s[i:])
+func Splice[S ~[]E, E comparable](s S, i int, e ...E) S {
+	return OrderedUnion(s[:i], e, s[i:])
+}
+
+// Helper function. Equivalent to UnorderedUnion(e, s)
+func Insert[S ~map[K]V, K comparable, V any](s S, e S) S {
+	return UnorderedUnion(e, s)
+}
+
+// Helper function. Equivalent to OrderedComplement(s, e)
+func OrderedRemove[S ~[]E, E comparable](s S, e ...E) S {
+	return OrderedComplement(s, e)
+}
+
+// Helper function. Equivalent to UnorderedComplement(s, S{k: v})
+func UnorderedRemove[S ~map[K]V, K comparable, V any](s S, k K) S {
+	var v V
+	return UnorderedComplement(s, S{k: v})
+}
+
+// Helper function. Equivalent to OrderedUnion(nil, s)
+func CloneOrderedSet[S ~[]E, E comparable](s S) S {
+	return OrderedUnion(nil, s)
+}
+
+// Helper function. Equivalent to UnorderedUnion(nil, s)
+func CloneUnorderedSet[S ~map[K]V, K comparable, V any](s S) S {
+	return UnorderedUnion(nil, s)
+}
+
+// Helper function. Equivalent to OrderedUnion(s)
+func Deduplicate[S ~[]E, E comparable](s S) S {
+	return OrderedUnion(s)
+}

@@ -75,6 +75,8 @@ fmt.Println(d) // prints true
 
 ## Tips and Tricks
 
+You can easily do a surprising amount of things with just those functions...
+
 ```
 // append an item to a set
 s1 = sets.OrderedUnion(s1, []string{"item to add"})
@@ -93,7 +95,13 @@ s2 := sets.OrderedUnion(nil, s1)
 
 // deduplicate a slice
 s1 = sets.OrderedUnion(s1)
+
+// splice in elems at point i
+s1 = sets.OrderedUnion(s1[:i], []string{"a", "b", "c"}, s1[i:])
 ```
+
+...but if you don't want to remember those, I put added helper functions for
+all of those and more. [Check out the docs](https://pkg.go.dev/github.com/mcvoid/sets) for a complete function list.
 
 ## License
 
